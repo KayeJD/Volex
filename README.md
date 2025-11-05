@@ -3,3 +3,5 @@ TODO:
 - Use shadcn to create signIn signUp react form
 
 Appwrite: Utilise teh Auth and Databases
+Sentry: App monitoring software for session replay (hides user data) https://sentry.io/jsmastery/ 
+*** ONLY 14 DAYS FREE TRIAL.
