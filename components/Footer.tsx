@@ -1,60 +1,39 @@
-'use client'
-
-import { sidebarLinks } from '@/constants'
-import { cn } from '@/lib/utils'
+import { logoutAccount } from '@/lib/actions/user.actions'
 import Image from 'next/image'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import Footer from './Footer'
-import PlaidLink from './PlaidLink'
+import { useRouter } from 'next/navigation'
+import React from 'react'
 
-const Sidebar = ({ user }: SiderbarProps) => {
-  const pathname = usePathname();
+const Footer = ({ user, type = 'desktop' }: FooterProps) => {
+  const router = useRouter();
+
+  const handleLogOut = async () => {
+    const loggedOut = await logoutAccount();
+
+    if(loggedOut) router.push('/sign-in')
+  }
 
   return (
-    <section className="sidebar">
-      <nav className="flex flex-col gap-4">
-        <Link href="/" className="mb-12 cursor-pointer flex items-center gap-2">
-          <Image 
-            src="/icons/logo.svg"
-            width={34}
-            height={34}
-            alt="Volex logo"
-            className="size-[24px] max-xl:size-14"
-          />
-          <h1 className="sidebar-logo">Volex</h1>
-        </Link>
+    <footer className="footer">
+      <div className={type === 'mobile' ? 'footer_name-mobile' : 'footer_name'}>
+        <p className="text-xl font-bold text-gray-700">
+          {user?.firstName[0]}
+        </p>
+      </div>
 
-        {sidebarLinks.map((item) => {
-          const isActive = pathname === item.route || pathname.startsWith(`${item.route}/`)
+      <div className={type === 'mobile' ? 'footer_email-mobile' : 'footer_email'}>
+          <h1 className="text-14 truncate text-gray-700 font-semibold">
+            {user?.firstName}
+          </h1>
+          <p className="text-14 truncate font-normal text-gray-600">
+            {user?.email}
+          </p>
+      </div>
 
-          return (
-            <Link href={item.route} key={item.label}
-              className={cn('sidebar-link', { 'bg-bank-gradient': isActive })}
-            >
-              <div className="relative size-6">
-                <Image 
-                  src={item.imgURL}
-                  alt={item.label}
-                  fill
-                  className={cn({
-                    'brightness-[3] invert-0': isActive
-                  })}
-                />
-              </div>
-              <p className={cn("sidebar-label", { "!text-white": isActive })}>
-                {item.label}
-              </p>
-            </Link>
-          )
-        })}
-        
-        <PlaidLink user={user} />
-      </nav>
-
-      <Footer user={user} />
-    </section>
+      <div className="footer_image" onClick={handleLogOut}>
+        <Image src="icons/logout.svg" fill alt="jsm" />
+      </div>
+    </footer>
   )
 }
 
-export default Sidebar
+export default Footer

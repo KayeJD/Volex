@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 import { Progress } from "./ui/progress";
 
-export const Category = ({ category }: CategoryProps) => {
+const Category = ({ category }: CategoryProps) => {
   const {
     bg,
     circleBg,
@@ -28,7 +28,6 @@ export const Category = ({ category }: CategoryProps) => {
         <Progress
           value={(category.count / category.totalCount) * 100}
           className={cn("h-2 w-full", progressBg)}
-        //   indicatorClassName={cn("h-2 w-full", indicator)}
         />
       </div>
     </div>
