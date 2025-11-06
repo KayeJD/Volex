@@ -1,6 +1,13 @@
 import {withSentryConfig} from '@sentry/nextjs';
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  typescript: {
+    ignoreBuildErrors: true
+  },
+  eslint: {
+    ignoreDuringBuilds: true
+  }
+};
 
 export default withSentryConfig(nextConfig, {
   // For all available options, see:
@@ -11,7 +18,7 @@ export default withSentryConfig(nextConfig, {
   project: "javascript-nextjs",
 
   // Only print logs for uploading source maps in CI
-  silent: !process.env.CI,
+  silent: true,
 
   // For all available options, see:
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/

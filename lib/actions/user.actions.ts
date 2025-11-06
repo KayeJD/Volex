@@ -6,9 +6,9 @@ import { cookies } from "next/headers";
 import { encryptId, extractCustomerIdFromUrl, parseStringify } from "../utils";
 import { CountryCode, ProcessorTokenCreateRequest, ProcessorTokenCreateRequestProcessorEnum, Products } from "plaid";
 
-import { plaidClient } from "../plaid";
+import { plaidClient } from '@/lib/plaid';
 import { revalidatePath } from "next/cache";
-import { addFundingSource, createDwollaCustomer } from "@/lib/actions/dwolla.actions";
+import { addFundingSource, createDwollaCustomer } from "./dwolla.actions";
 
 const {
   APPWRITE_DATABASE_ID: DATABASE_ID,
@@ -40,8 +40,8 @@ export const signIn = async ({ email, password }: signInProps) => {
     cookies().set("appwrite-session", session.secret, {
       path: "/",
       httpOnly: true,
-      sameSite: "strict",
-      secure: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
     });
 
     const user = await getUserInfo({ userId: session.userId }) 
@@ -58,9 +58,9 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
   let newUserAccount;
 
   try {
-    const { account, database } = await createAdminClient();
+    const { user, database, account } = await createAdminClient();
 
-    newUserAccount = await account.create(
+    newUserAccount = await user.create(
       ID.unique(), 
       email, 
       password, 
@@ -113,8 +113,11 @@ export async function getLoggedInUser() {
     const user = await getUserInfo({ userId: result.$id})
 
     return parseStringify(user);
-  } catch (error) {
-    console.log(error)
+  } catch (error: any) {
+    if (error.message === "No session") {
+      return null;
+    }
+    console.error(error);
     return null;
   }
 }
