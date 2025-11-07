@@ -10,3 +10,6 @@ TODO:
 - Plaid: connects to your bank account (mainly for auth)
 - Dwolla: for sending and receiving payments
 
+## Dev Notes for later
+
+<img width="1677" height="906" alt="image" src="https://github.com/user-attachments/assets/832a7b89-d7ea-4a98-a486-92bf4909420d" />
