@@ -63,6 +63,7 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
     newUserAccount = await user.create(
       ID.unique(), 
       email, 
+      undefined, // Note: call structure expects a phone number here
       password, 
       `${firstName} ${lastName}`
     );
