@@ -12,4 +12,11 @@ TODO:
 
 ## Dev Notes for later
 
+<details> 
+  
+<summary> When setting up Plaid again</summary>
+
+Remember to set up Dwolla integration from Plaid dashboard
 <img width="1677" height="906" alt="image" src="https://github.com/user-attachments/assets/832a7b89-d7ea-4a98-a486-92bf4909420d" />
+
+</details>
