@@ -114,9 +114,9 @@ export async function getLoggedInUser() {
 
     return parseStringify(user);
   } catch (error: any) {
-    if (error.message === "No session") {
-      return null;
-    }
+    // if (error.message === "No session") {
+    //   return null;
+    // }
     console.error(error);
     return null;
   }
