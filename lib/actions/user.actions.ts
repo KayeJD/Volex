@@ -40,8 +40,8 @@ export const signIn = async ({ email, password }: signInProps) => {
     cookies().set("appwrite-session", session.secret, {
       path: "/",
       httpOnly: true,
-      sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      secure: true,
     });
 
     const user = await getUserInfo({ userId: session.userId }) 
