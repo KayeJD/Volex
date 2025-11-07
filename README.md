@@ -7,3 +7,6 @@ TODO:
 *** ONLY 14 DAYS FREE TRIAL.
   <img width="1912" height="925" alt="image" src="https://github.com/user-attachments/assets/fccbc351-ca1b-4b48-a509-e78bdca23e9d" />
 
+- Plaid: connects to your bank account (mainly for auth)
+- Dwolla: for sending and receiving payments
+
